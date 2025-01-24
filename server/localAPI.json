@@ -1,0 +1,35 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Buy groceries",
+      "description": "Purchase fruits, vegetables, and milk",
+      "status": "To Do"
+    },
+    {
+      "id": 2,
+      "title": "Complete homework",
+      "description": "Finish math exercises and science project",
+      "status": "Completed"
+    },
+    {
+      "id": 3,
+      "title": "Call mom",
+      "description": "",
+      "status": "To Do"
+    },
+    {
+      "id": 4,
+      "title": "Prepare presentation",
+      "description": "Create slides for the team meeting",
+      "status": "Completed"
+    },
+    {
+      "id": 5,
+      "title": "Fix the bike",
+      "description": "Repair the chain and pump the tires",
+      "status": "To Do"
+    }
+  ]
+
+}
