@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchTodo} from "../features/taskSlice.tsx";
+import {deleteTask, fetchTodo} from "../features/taskSlice.tsx";
 
 const TaskList = () => {
 
@@ -39,7 +39,9 @@ const TaskList = () => {
 								className="px-3 py-2 bg-white text-fuchsia-600 rounded-sm hover:bg-sky-400">Edit
 							</button>
 							<button
-								className="px-3 py-2 bg-white text-fuchsia-600 rounded-sm hover:bg-rose-400">Delete
+								className="px-3 py-2 bg-white text-fuchsia-600 rounded-sm hover:bg-rose-400"
+								onClick={() => dispatch(deleteTask(task.id))}>
+								Delete
 							</button>
 						</div>
 					</li>

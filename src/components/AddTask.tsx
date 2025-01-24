@@ -13,8 +13,8 @@ const AddTask = () => {
 			id: uuidv4(),
 			...data
 		}
-		console.log(newTask)
-		dispatch(addTask(newTask))
+		dispatch(addTask(newTask));
+		reset()
 	}
 	return (
 		<div className="mb-7">

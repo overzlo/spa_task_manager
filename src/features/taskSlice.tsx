@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-
 const initialState = {
 	task: [],
 	loading: false,
@@ -16,16 +15,32 @@ export const fetchTodo = createAsyncThunk(
 		return data
 	}
 )
-
+export const addTask = createAsyncThunk(
+	'tasks/addTask',
+	async (newTask) => {
+		await fetch(`http://localhost:3000/tasks`, {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify(newTask)
+		});
+		return newTask;
+	}
+)
+export const deleteTask = createAsyncThunk(
+	'tasks/deleteTask',
+	async (taskId) => {
+		await fetch(`http://localhost:3000/tasks/${taskId}`, {
+			method: 'DELETE'
+		})
+		return taskId;
+	}
+)
 const taskSlice = createSlice({
 	name: 'tasks',
 	initialState,
-	reducers: {
-		addTask: (state, action) => {
-			console.log(action.payload)
-			console.log(state.task= [action.payload, ...state.task])
-		}
-	},
+	reducers: {},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchTodo.pending, (state) => {
@@ -34,14 +49,33 @@ const taskSlice = createSlice({
 			})
 			.addCase(fetchTodo.fulfilled, (state, action) => {
 				state.loading = false
-				state.task = (action.payload)
+				state.task = action.payload.reverse()
 			})
 			.addCase(fetchTodo.rejected, (state, action) => {
+				state.loading = false
+				state.error = action.error.message
+			})
+			.addCase(addTask.fulfilled, (state, action) => {
+				state.loading = false
+				state.task = [action.payload, ...state.task]
+			})
+			.addCase(addTask.pending, (state) => {
+				state.loading = true
+				state.error = null
+			})
+			.addCase(addTask.rejected, (state, action) => {
+				state.loading = false
+				state.error = action.error.message
+			})
+			.addCase(deleteTask.fulfilled, (state, action) => {
+				state.loading = false
+				state.task = state.task.filter(task => task.id !== action.payload)
+			})
+			.addCase(deleteTask.rejected, (state, action) => {
 				state.loading = false
 				state.error = action.error.message
 			})
 	}
 })
 
-export const {addTask} = taskSlice.actions;
 export default taskSlice.reducer;

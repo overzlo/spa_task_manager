@@ -1,35 +1,22 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "title": "Buy groceries",
-      "description": "Purchase fruits, vegetables, and milk",
+      "id": "92acb9f1-4fcd-436b-9e20-14bb48f98bd3",
+      "title": "every",
+      "description": "thing",
       "status": "To Do"
     },
     {
-      "id": 2,
-      "title": "Complete homework",
-      "description": "Finish math exercises and science project",
-      "status": "Completed"
-    },
-    {
-      "id": 3,
-      "title": "Call mom",
-      "description": "",
+      "id": "a518d1e2-650c-465f-bdba-c442630e5293",
+      "title": "every",
+      "description": "thing",
       "status": "To Do"
     },
     {
-      "id": 4,
-      "title": "Prepare presentation",
-      "description": "Create slides for the team meeting",
-      "status": "Completed"
-    },
-    {
-      "id": 5,
-      "title": "Fix the bike",
-      "description": "Repair the chain and pump the tires",
+      "id": "290fdd46-432d-4434-bcab-5b0b4abedbaa",
+      "title": "Kanat",
+      "description": "Zhumagaliiiii",
       "status": "To Do"
     }
   ]
-
 }
