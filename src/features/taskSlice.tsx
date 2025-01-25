@@ -37,6 +37,22 @@ export const deleteTask = createAsyncThunk(
 		return taskId;
 	}
 )
+
+
+export const updateTask = createAsyncThunk(
+	'tasks/updateTask',
+	async (updatedTask) => {
+		await fetch(`http://localhost:3000/tasks/${updatedTask.id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify(updatedTask)
+		})
+		return updatedTask;
+	}
+)
+
 const taskSlice = createSlice({
 	name: 'tasks',
 	initialState,
@@ -75,7 +91,12 @@ const taskSlice = createSlice({
 				state.loading = false
 				state.error = action.error.message
 			})
+			.addCase(updateTask.fulfilled, (state, action) => {
+				state.task = state.task.map((task) =>
+					task.id === action.payload.id
+						? action.payload
+						: task)
+			})
 	}
 })
-
 export default taskSlice.reducer;
