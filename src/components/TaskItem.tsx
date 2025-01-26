@@ -1,12 +1,17 @@
 import {EditTask} from "@/components/EditTask.tsx";
 import {deleteTask} from "@/features/taskSlice.tsx";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "@/features/hooks.ts";
+import {ITaskData} from "@/features/models";
 
-const TaskItem = ({task}) => {
-	const dispatch = useDispatch();
+type TTaskProps = {
+	task: ITaskData;
+}
+
+const TaskItem = ({task}: TTaskProps) => {
+	const dispatch = useAppDispatch();
 	return (
-		<li key={task.id}
-		    className="bg-fuchsia-600 p-4 rounded-xl
+		<li
+			className="bg-fuchsia-600 p-4 rounded-xl
 						    shadow-sm hover:shadow-md cursor-pointer hover:bg-fuchsia-500
 						    flex justify-between items-center px-5 py-2">
 			<div>
@@ -20,6 +25,7 @@ const TaskItem = ({task}) => {
 					<EditTask task={task}/>
 				</div>
 				<button
+					title="Delete Task"
 					className="h-10 px-3 py-2 bg-white text-fuchsia-600 rounded-sm hover:bg-rose-400"
 					onClick={() => dispatch(deleteTask(task.id))}>
 					Delete

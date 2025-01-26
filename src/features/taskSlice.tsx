@@ -1,55 +1,103 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {ITaskData, ITaskState} from "@/features/models.ts";
 
-const initialState = {
+const initialState: ITaskState = {
 	task: [],
 	loading: false,
 	error: null,
 	status: 'All'
 }
 
-export const fetchTodo = createAsyncThunk(
+export const fetchTodo = createAsyncThunk<ITaskData[], void>(
 	'tasks/fetchTodo',
-	async () => {
-		const response = await fetch('http://localhost:3000/tasks');
-		const data = await response.json();
-		return data
+	async (_, {rejectWithValue}) => {
+		try {
+			const response = await fetch('http://localhost:3000/tasks');
+			if (!response.ok) {
+				throw new Error('something went wrong');
+			}
+			const data: ITaskData[] = await response.json();
+			return data;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return rejectWithValue(error.message);
+			} else {
+				return rejectWithValue('unknown error');
+			}
+		}
 	}
-)
-export const addTask = createAsyncThunk(
+);
+
+export const addTask = createAsyncThunk<ITaskData, ITaskData>(
 	'tasks/addTask',
-	async (newTask) => {
-		await fetch(`http://localhost:3000/tasks`, {
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json'
-			},
-			body: JSON.stringify(newTask)
-		});
-		return newTask;
+	async (newTask: ITaskData, {rejectWithValue}) => {
+		try {
+			const response = await fetch('http://localhost:3000/tasks', {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: JSON.stringify(newTask)
+			});
+			if (!response.ok) {
+				throw new Error('something went wrong');
+			}
+			return newTask;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return rejectWithValue(error.message);
+			} else {
+				return rejectWithValue('unknown error');
+			}
+		}
 	}
-)
-export const deleteTask = createAsyncThunk(
+);
+
+export const deleteTask = createAsyncThunk<ITaskData["id"], ITaskData["id"]>(
 	'tasks/deleteTask',
-	async (taskId) => {
-		await fetch(`http://localhost:3000/tasks/${taskId}`, {
-			method: 'DELETE'
-		})
-		return taskId;
+	async (taskId: string, {rejectWithValue}) => {
+		try {
+			const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
+				method: 'DELETE'
+			})
+
+			if (!response.ok) {
+				throw new Error('something went wrong');
+			}
+			return taskId as ITaskData["id"];
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return rejectWithValue(error.message);
+			} else {
+				return rejectWithValue('unknown error');
+			}
+		}
 	}
 )
 
 
-export const updateTask = createAsyncThunk(
+export const updateTask = createAsyncThunk<ITaskData, ITaskData>(
 	'tasks/updateTask',
-	async (updatedTask) => {
-		await fetch(`http://localhost:3000/tasks/${updatedTask.id}`, {
-			method: 'PUT',
-			headers: {
-				'Content-type': 'application/json'
-			},
-			body: JSON.stringify(updatedTask)
-		})
-		return updatedTask;
+	async (updatedTask: ITaskData, {rejectWithValue}) => {
+		try {
+			const response = await fetch(`http://localhost:3000/tasks/${updatedTask.id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: JSON.stringify(updatedTask)
+			})
+			if (!response.ok) {
+				throw new Error('something went wrong');
+			}
+			return updatedTask as ITaskData;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return rejectWithValue(error.message);
+			} else {
+				return rejectWithValue('unknown error');
+			}
+		}
 	}
 )
 
@@ -69,7 +117,7 @@ const taskSlice = createSlice({
 			})
 			.addCase(fetchTodo.rejected, (state, action) => {
 				state.loading = false
-				state.error = action.error.message
+				state.error = action.error.message as string | null
 			})
 			.addCase(addTask.fulfilled, (state, action) => {
 				state.loading = false
@@ -81,7 +129,7 @@ const taskSlice = createSlice({
 			})
 			.addCase(addTask.rejected, (state, action) => {
 				state.loading = false
-				state.error = action.error.message
+				state.error = action.error.message as string | null
 			})
 			.addCase(deleteTask.fulfilled, (state, action) => {
 				state.loading = false
@@ -89,7 +137,7 @@ const taskSlice = createSlice({
 			})
 			.addCase(deleteTask.rejected, (state, action) => {
 				state.loading = false
-				state.error = action.error.message
+				state.error = action.error.message as string | null
 			})
 			.addCase(updateTask.fulfilled, (state, action) => {
 				state.task = state.task.map((task) =>
