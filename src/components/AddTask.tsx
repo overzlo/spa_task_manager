@@ -18,7 +18,6 @@ const AddTask = () => {
 	}
 	return (
 		<div className="mb-7">
-
 			<h2 className="text-4xl font-semibold my-7 text-fuchsia-500 italic">Add a new task...</h2>
 			<form className="flex flex-col space-y-6"
 			      onSubmit={handleSubmit(onSubmit)}>

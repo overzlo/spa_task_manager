@@ -2,8 +2,7 @@ import {useState} from "react";
 import ModalEdit from "@/components/ModalEdit.tsx";
 
 export function EditTask({task}) {
-	const [isEdit, setEdit] = useState(false);
-
+	const [isEdit, setEdit] = useState<boolean>(false);
 	return (
 		<>
 			{isEdit ? <ModalEdit task={task} setClose={() => setEdit(false)}/>

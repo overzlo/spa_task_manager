@@ -1,22 +1,22 @@
 {
   "tasks": [
     {
-      "id": "92acb9f1-4fcd-436b-9e20-14bb48f98bd3",
-      "title": "every",
-      "description": "thing",
+      "id": "c9fb7f02-1f4d-4108-b44e-ca57f98f1057",
+      "title": "Kanat",
+      "description": "Zhumagali",
       "status": "To Do"
     },
     {
-      "id": "a518d1e2-650c-465f-bdba-c442630e5293",
-      "title": "every",
+      "id": "82df0c3a-789d-4fa2-8405-e82461885ae1",
+      "title": "Every",
       "description": "thing",
       "status": "In Progress"
     },
     {
-      "id": "290fdd46-432d-4434-bcab-5b0b4abedbaa",
-      "title": "Kanataaa",
-      "description": "Zhumagaliiiii",
-      "status": "To Do"
+      "id": "7cc2e967-733b-4041-9dc8-84b678825010",
+      "title": "my",
+      "description": "name",
+      "status": "Completed"
     }
   ]
 }
