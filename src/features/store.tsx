@@ -6,7 +6,7 @@ export const store = configureStore({
 		tasks: taskSlice
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware()
+		getDefaultMiddleware();
 })
 
 export type RootState = ReturnType<typeof store.getState>
